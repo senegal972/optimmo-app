@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #0D1E2E;
+  --gold: #C4964A;
+  --teal: #1A4D4A;
+  --cream: #F7F2EC;
+}
+
+body {
+  background: var(--cream);
+  color: var(--navy);
+}
+
+@layer components {
+  .badge-score {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .pipeline-card {
+    @apply bg-white rounded-lg p-3 shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer;
+  }
+  .stat-card {
+    @apply bg-white rounded-xl p-5 shadow-sm border border-gray-100;
+  }
+}
