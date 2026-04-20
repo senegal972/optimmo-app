@@ -5,15 +5,6 @@
       "schedule": "0 11 * * 1"
     }
   ],
-  "env": {
-    "NOTION_API_KEY": "@notion-api-key",
-    "NOTION_ACQUEREURS_DB": "@notion-acquereurs-db",
-    "NOTION_BIENS_DB": "@notion-biens-db",
-    "NOTION_ACTIVITES_DB": "@notion-activites-db",
-    "ANTHROPIC_API_KEY": "@anthropic-api-key",
-    "CRON_SECRET": "@cron-secret",
-    "RESEND_API_KEY": "@resend-api-key"
-  },
   "functions": {
     "app/api/cron/weekly/route.ts": { "maxDuration": 60 },
     "app/api/match/run/route.ts": { "maxDuration": 60 }
