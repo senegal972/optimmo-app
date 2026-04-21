@@ -112,21 +112,26 @@ function pageToBien(page: PageObjectResponse): Bien {
 // ── Acquéreurs ────────────────────────────────────────────────────────────────
 
 export async function getAcquereurs(): Promise<Acquereur[]> {
-  const pages: PageObjectResponse[] = []
-  let cursor: string | undefined
+  try {
+    const pages: PageObjectResponse[] = []
+    let cursor: string | undefined
 
-  do {
-    const res = await (notion as any).databases.query({
-      database_id: DB.acquereurs,
-      start_cursor: cursor,
-      page_size: 100,
-      sorts: [{ property: 'Score', direction: 'descending' }],
-    })
-    pages.push(...res.results.filter((r: any) => r.object === 'page'))
-    cursor = res.has_more ? (res.next_cursor ?? undefined) : undefined
-  } while (cursor)
+    do {
+      const res = await (notion as any).databases.query({
+        database_id: DB.acquereurs,
+        start_cursor: cursor,
+        page_size: 100,
+        sorts: [{ property: 'Score', direction: 'descending' }],
+      })
+      pages.push(...res.results.filter((r: any) => r.object === 'page'))
+      cursor = res.has_more ? (res.next_cursor ?? undefined) : undefined
+    } while (cursor)
 
-  return pages.map(pageToAcquereur)
+    return pages.map(pageToAcquereur)
+  } catch (err) {
+    console.error('[getAcquereurs] Notion error:', err)
+    return []
+  }
 }
 
 export async function getAcquereurById(id: string): Promise<Acquereur | null> {
@@ -187,14 +192,19 @@ export async function createAcquereur(data: Partial<Acquereur>) {
 // ── Biens ─────────────────────────────────────────────────────────────────────
 
 export async function getBiens(onlyDisponible = true): Promise<Bien[]> {
-  const res = await (notion as any).databases.query({
-    database_id: DB.biens,
-    filter: onlyDisponible
-      ? { property: 'Statut', select: { equals: '🟢 Disponible' } }
-      : undefined,
-    sorts: [{ property: 'Prix (€)', direction: 'ascending' }],
-  })
-  return (res.results.filter((r: any) => r.object === 'page') as PageObjectResponse[]).map(pageToBien)
+  try {
+    const res = await (notion as any).databases.query({
+      database_id: DB.biens,
+      filter: onlyDisponible
+        ? { property: 'Statut', select: { equals: '🟢 Disponible' } }
+        : undefined,
+      sorts: [{ property: 'Prix (€)', direction: 'ascending' }],
+    })
+    return (res.results.filter((r: any) => r.object === 'page') as PageObjectResponse[]).map(pageToBien)
+  } catch (err) {
+    console.error('[getBiens] Notion error:', err)
+    return []
+  }
 }
 
 export async function upsertBien(data: Partial<Bien> & { refSextant: string }) {
