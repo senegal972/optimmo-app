@@ -1,6 +1,9 @@
 import { getAcquereurs } from '@/lib/notion'
 import type { Acquereur, PipelineStage } from '@/lib/types'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 const STAGES: { stage: PipelineStage; color: string; bg: string }[] = [
   { stage: '🆕 Lead',       color: 'text-gray-700',   bg: 'bg-gray-50 border-gray-200' },
   { stage: '✅ Qualifié',   color: 'text-blue-700',   bg: 'bg-blue-50 border-blue-200' },

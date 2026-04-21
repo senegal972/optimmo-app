@@ -3,6 +3,9 @@ import { calculerScore } from '@/lib/scoring'
 import { notFound } from 'next/navigation'
 import type { ScoreDetails } from '@/lib/types'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 function ScoreBar({ label, val, max, color }: { label: string; val: number; max: number; color: string }) {
   const pct = Math.round((val / max) * 100)
   return (

@@ -2,6 +2,9 @@ import { getAcquereurs } from '@/lib/notion'
 import { getBiens } from '@/lib/notion'
 import type { PipelineStage } from '@/lib/types'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 const STAGES: PipelineStage[] = [
   '🆕 Lead','✅ Qualifié','🔥 Actif',
   '🏠 En visite','📝 Offre','📋 Compromis','🎉 Acte signé',

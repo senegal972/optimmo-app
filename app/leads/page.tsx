@@ -1,6 +1,9 @@
 import { getAcquereurs } from '@/lib/notion'
 import type { Acquereur } from '@/lib/types'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 function ScoreBadge({ score }: { score: number }) {
   const cls = score >= 60 ? 'bg-red-100 text-red-800 border-red-200'
     : score >= 30 ? 'bg-yellow-100 text-yellow-800 border-yellow-200'
